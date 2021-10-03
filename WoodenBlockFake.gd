@@ -41,7 +41,6 @@ func _ready():
 	velocity.x = speed		
 
 func _physics_process(delta):
-	#print('$Camera2D.position.y', $Camera2D.position.y)
 	$Sprite.texture = image_array[current_code]
 	var collision = move_and_collide(velocity * delta)
 	if collision:

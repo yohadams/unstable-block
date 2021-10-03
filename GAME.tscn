@@ -46,15 +46,16 @@ scale = Vector2( 1, 0.2 )
 position = Vector2( 0, -50 )
 shape = SubResource( 1 )
 
-[node name="WoodenBlockFake" parent="." instance=ExtResource( 2 )]
-position = Vector2( 305, 0 )
-
 [node name="MainCam" type="Camera2D" parent="."]
-position = Vector2( 301, 400 )
+position = Vector2( 302, 400 )
 current = true
+process_mode = 0
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
 smoothing_enabled = true
+
+[node name="WoodenBlockFake" parent="MainCam" instance=ExtResource( 2 )]
+position = Vector2( 0, -400 )
 
 [node name="Wall" type="StaticBody2D" parent="."]
 constant_linear_velocity = Vector2( 10, 10 )

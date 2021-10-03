@@ -9,7 +9,6 @@ extends AudioStreamPlayer2D
 func _ready():
 	play(1)
 
-
 func toggle_music():
 	if playing:
 		stop()
