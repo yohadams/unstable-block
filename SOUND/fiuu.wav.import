@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/fiuu.wav-adb363ad4db633e635b94a4ceabe3764.sample"
+
+[deps]
+
+source_file="res://SOUND/fiuu.wav"
+dest_files=[ "res://.import/fiuu.wav-adb363ad4db633e635b94a4ceabe3764.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
