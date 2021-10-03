@@ -27,7 +27,7 @@ func _ready():
 	var screen_size = get_viewport().get_visible_rect().size
 	
 func _input(event):
-	if event.is_action_pressed("ui_down"):
+	if event.is_action_pressed("ui_down") || event is InputEventScreenTouch:
 		if can_add_another_block:
 			can_add_another_block = false
 			$WoodenBlockFake.visible = false
