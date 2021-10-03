@@ -9,7 +9,8 @@ var wooden_block_stack = [];
 var next_block_code = 0 
 var last_bg_position = -400
 var can_add_another_block = true
- 
+var lost = false
+
 func generate_bolock(camera_position, fake_position, fake_velocity): 
 	print($MainCam/WoodenBlockFake.position)
 	var rand = RandomNumberGenerator.new()
@@ -29,8 +30,6 @@ var camera_start_position = 0
 func _ready():
 	var screen_size = get_viewport().get_visible_rect().size
 	camera_start_position = $MainCam.position.y
-	
-	
 
 	
 func _input(event):
@@ -54,8 +53,9 @@ func _input(event):
 				$KillFloor.position.y = $KillFloor.position.y - 150
 			$KillWall2/CollisionShape2D.shape.extents = Vector2($KillWall/CollisionShape2D.shape.extents.x, $KillWall/CollisionShape2D.shape.extents.y+160)
 			$KillWall/CollisionShape2D.shape.extents = Vector2($KillWall/CollisionShape2D.shape.extents.x, $KillWall/CollisionShape2D.shape.extents.y+160)
-			can_add_another_block = true
-			$MainCam/WoodenBlockFake.visible = true
+			if !lost:
+				can_add_another_block = true
+				$MainCam/WoodenBlockFake.visible = true
 		
 func add_next_bg_up():
 	var bg = $BG2.duplicate();
@@ -72,21 +72,24 @@ func _on_KillFloor_body_entered(body):
 
 func kill_all_wooden_block():
 	for block in wooden_block_stack:
-		block.queue_free()
+		block.queue_free()    
 
 func process_kill(body):
 	if wooden_block_stack.size() >= 1:
 		if body == wooden_block_stack[0]:
+			lost = true
 			kill_all_wooden_block()
 			can_add_another_block = false
 			$MainCam/WoodenBlockFake.visible = false
 			$BG2.visible = false
-			$EndGame.position.y = $MainCam.position.y - 300
+			if wooden_block_stack.size() > 3:
+				$EndGame.position.y = $MainCam.position.y - 300
 			$MainCam/WoodenBlockFake.speed = 0
 			$MainCam/WoodenBlockFake.velocity = Vector2(0,0)
 			var bb_code = $EndGame/SCORE_COUNT.bbcode_text
 			$EndGame/SCORE_COUNT.bbcode_text = bb_code.replace('x', str(wooden_block_stack.size()*100))
 			$MainCam/WoodenBlockFake.visible = false
+			can_add_another_block = false
 			$EndGame.visible = true
 			$Sound.is_playing()
 			$Sound.stream = sob
